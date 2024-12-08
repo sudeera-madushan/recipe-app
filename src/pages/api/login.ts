@@ -1,9 +1,9 @@
-import { signToken } from '../../utils/jwt';
+import { signToken } from "@/utils/jwt";
 
-export default function handler(req, res) {
+export default function handler(req: any, res: any) {
   if (req.method === 'POST') {
     const { username, password } = req.body;
-    
+
     if (username === 'test' && password === 'password') {
       const token = signToken({ id: 1, username: 'test' });
       return res.status(200).json({ token });

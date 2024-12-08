@@ -1,4 +1,5 @@
 import User from "@/models/UserModel";
+import { connect } from "@/utils/dbConfig";
 import { signToken } from "@/utils/jwt";
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
@@ -8,7 +9,7 @@ const loginSchema = yup.object().shape({
   email: yup.string().email().required("Email is required"),  
   password: yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
 });
-
+connect();
 export default async function handler(req: any, res: any) {
   if (req.method === "POST") {
     try {
@@ -50,6 +51,7 @@ export default async function handler(req: any, res: any) {
         },
       });
     } catch (error) {
+      console.log(error);
       if (error instanceof yup.ValidationError) {
         return res.status(400).json({ error: error.errors });
       }

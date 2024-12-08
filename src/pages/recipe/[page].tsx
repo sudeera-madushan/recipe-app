@@ -4,6 +4,15 @@ export async function getServerSideProps(context: any) {
   const { req, params } = context;
   const token = req.cookies.token || "";
   const id = params.page;
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
   const response = await fetch(`${process.env.API_BASE_URL}recipes?id=${id}`, {
     headers: {
       Authorization: `Bearer ${JSON.parse(token).token}`,

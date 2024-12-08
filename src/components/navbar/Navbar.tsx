@@ -111,7 +111,7 @@ const Navbar = () => {
                 HOME
               </Link>
               <Link
-                href="/"
+                href="/favourit"
                 className="border-b justify-between flex hover:bg-gray-300 duration-300 text-gray-900 px-3 py-2 text-base font-medium"
               >
                 FAVIOURIT

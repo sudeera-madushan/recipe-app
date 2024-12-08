@@ -50,8 +50,8 @@ const ItemPreview = ({
 }) => {
   return (
     <div className="container mx-auto py-10">
-      <div className="flex flex-col lg:flex-row items-start">
-        <div className="w-full lg:w-1/3">
+      <div className="flex flex-col lg:flex-row items-start px-4 sm:px-0">
+        <div className="w-full lg:w-1/3 ">
           <Image
             width={500}
             height={500}

@@ -87,7 +87,7 @@ const HomeComponent = () => {
 
   return (
     <MainScreen>
-      <div className="grid md:grid-cols-6 grid-cols-3 lg:grid-cols-8 gap-6 w-full pt-10 ">
+      <div className="grid md:grid-cols-6 grid-cols-3 lg:grid-cols-8 gap-2 px-2 md:gap-6 w-full pt-10 sm:gap-1 ">
         {categories.map((category) => (
           <CategoryButtonCard
             key={category.idCategory}

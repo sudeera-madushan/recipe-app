@@ -47,7 +47,7 @@ async function handler(req: any, res: any) {
 async function getAllRecipesByCategory(category: string) {
   try {
     const response = await axios.get(
-      `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
+      `${process.env.SAMPLE_DATA_URL}filter.php?c=${category}`
     );
     return response.data.meals || [];
   } catch (error) {
@@ -58,7 +58,7 @@ async function getAllRecipesByCategory(category: string) {
 async function getAllRecipes() {
   try {
     const response = await axios.get(
-      "https://www.themealdb.com/api/json/v1/1/search.php?s="
+      `${process.env.SAMPLE_DATA_URL}search.php?s=`
     );
     return response.data.meals || [];
   } catch (error) {
@@ -70,7 +70,7 @@ async function getAllRecipes() {
 async function getOneRecipes(id: string) {
   try {
     const response = await axios.get(
-      `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+      `${process.env.SAMPLE_DATA_URL}lookup.php?i=${id}`
     );
     return response.data;
   } catch (error) {

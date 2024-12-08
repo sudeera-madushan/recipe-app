@@ -17,7 +17,7 @@ async function handler(req: any, res: any) {
 async function getAllCategories() {
   try {
     const response = await axios.get(
-      "https://www.themealdb.com/api/json/v1/1/categories.php"
+      `${process.env.SAMPLE_DATA_URL}categories.php`
     );
     return response.data.categories;
   } catch (error) {

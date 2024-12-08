@@ -2,14 +2,14 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import Router from "next/router";
 const Axios = axios.create({
-  baseURL: "http://localhost:3000/api/",
+  baseURL: process.env.API_BASE_URL!,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 Axios.interceptors.request.use((config) => {
-  const cookies = Cookies.get("token"); // Make sure this name matches the cookie being set
+  const cookies = Cookies.get("token"); 
   let token = "";
   if (cookies) {
     token = JSON.parse(cookies)["token"];

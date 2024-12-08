@@ -3,6 +3,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useState } from "react";
 import { Recipe } from "@/pages/types";
 import Axios from "@/utils/axios";
+import Router from "next/router";
 const ItemCard = ({
   recipe,
   isFav,
@@ -13,11 +14,12 @@ const ItemCard = ({
   handleFav: any;
 }) => {
   return (
-    <div className="group">
+    <div className="group" >
       <div className="relative transform transition-transform duration-300 group-hover:scale-105  p-4">
         <img
+          onClick={() => Router.push(`/recipe/${recipe.id}`)}
           src={recipe.image}
-          className="object-cover rounded-3xl"
+          className="object-cover rounded-3xl cursor-pointer"
           alt={recipe.name}
           width={200}
           height={200}

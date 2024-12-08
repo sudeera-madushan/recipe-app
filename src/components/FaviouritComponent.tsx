@@ -6,7 +6,6 @@ import CategoryButtonCard from "./card/CategoryButtonCard";
 import Axios from "@/utils/axios";
 import { Category, Recipe } from "@/pages/types";
 import Loader from "./loader/Loader";
-import { set } from "mongoose";
 
 const FaviouritComponent = () => {
   const [faviouritRecipes, setFavouritRecipes] = React.useState<Recipe[]>([]);

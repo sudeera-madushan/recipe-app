@@ -6,7 +6,6 @@ import CategoryButtonCard from "./card/CategoryButtonCard";
 import Axios from "@/utils/axios";
 import { Category, Recipe } from "@/pages/types";
 import Loader from "./loader/Loader";
-import { set } from "mongoose";
 
 const HomeComponent = () => {
   const [categories, setCategories] = React.useState<Category[]>([]);
@@ -15,7 +14,7 @@ const HomeComponent = () => {
   const [selectedCategory, setSelectedCategory] = React.useState<string>("");
   const [loading, setLoading] = React.useState<boolean>(true);
   useEffect(() => {
-    handleFetch()
+    handleFetch();
   }, [selectedCategory]);
 
   useEffect(() => {
@@ -30,7 +29,7 @@ const HomeComponent = () => {
     } else {
       fetchRecipesByCategory(selectedCategory);
     }
-  }
+  };
   const fetchFaviouritRecipes = async () => {
     try {
       const response = await Axios.get("favourit");
@@ -80,7 +79,7 @@ const HomeComponent = () => {
       setLoading(true);
       await Axios.post("favourit", recipe);
       fetchFaviouritRecipes();
-      await handleFetch()
+      await handleFetch();
     } catch (error) {
       console.log("error", error);
     }
@@ -110,13 +109,15 @@ const HomeComponent = () => {
               isFav={
                 faviouritRecipes.filter((f) => f.id === recipe.id).length > 0
               }
-              handleFav={() => {handleFav(recipe)}}
+              handleFav={() => {
+                handleFav(recipe);
+              }}
             />
           ))}
         </div>
       ) : (
-        <div className="text-center text-2xl font-semibold text-fontGray">
-          No recipes found
+        <div className="text-center text-2xl font-semibold text-fontGray h-lvh items-center justify-center flex w-full">
+          <text>No recipes found</text>
         </div>
       )}
     </MainScreen>

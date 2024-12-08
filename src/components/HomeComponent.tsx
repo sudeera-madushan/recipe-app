@@ -4,7 +4,7 @@ import ItemCard from "./card/ItemCard";
 import MainScreen from "./MainScreen";
 import CategoryButtonCard from "./card/CategoryButtonCard";
 import Axios from "@/utils/axios";
-import { Category, Recipe } from "@/pages/types";
+import { Category, Recipe } from "@/utils/types";
 import Loader from "./loader/Loader";
 
 const HomeComponent = () => {

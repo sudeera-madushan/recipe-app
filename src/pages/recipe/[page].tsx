@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export async function getServerSideProps(context: any) {
   const { req, params } = context;
   const token = req.cookies.token || "";
@@ -41,7 +43,8 @@ const ItemPreview = ({
     <div className="container mx-auto py-10">
       <div className="flex flex-col lg:flex-row items-start">
         <div className="w-full lg:w-1/3">
-          <img
+          <Image
+            width={500}
             src={recipe.image}
             alt={recipe.name}
             className="rounded-lg shadow-lg"

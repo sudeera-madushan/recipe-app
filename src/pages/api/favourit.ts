@@ -13,8 +13,6 @@ const recipSchema = yup.object().shape({
 });
 async function handler(req: any, res: any) {
 
-    console.log(req.user.id)
-  
   if (req.method === "GET") {
     try {
       //find bu user objectid

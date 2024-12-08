@@ -1,9 +1,10 @@
 import React from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useState } from "react";
-import { Recipe } from "@/pages/types";
+import { Recipe } from "@/utils/types";
 import Axios from "@/utils/axios";
 import Router from "next/router";
+import Image from "next/image";
 const ItemCard = ({
   recipe,
   isFav,
@@ -16,7 +17,7 @@ const ItemCard = ({
   return (
     <div className="group" >
       <div className="relative transform transition-transform duration-300 group-hover:scale-105  p-4">
-        <img
+        <Image
           onClick={() => Router.push(`/recipe/${recipe.id}`)}
           src={recipe.image}
           className="object-cover rounded-3xl cursor-pointer"

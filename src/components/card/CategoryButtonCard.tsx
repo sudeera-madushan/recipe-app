@@ -1,4 +1,4 @@
-import { Category } from "@/pages/types";
+import { Category } from "@/utils/types";
 import React from "react";;
 
 const CategoryButtonCard = ({ category, onClick, selected }: { category: Category , onClick: any, selected: string}) => {

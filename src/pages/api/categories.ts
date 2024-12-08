@@ -5,7 +5,7 @@ async function handler(req: any, res: any) {
   if (req.method === "GET") {
     try {
       const resipies = await getAllCategories();
-      return res.status(200).json(resipies);
+      return res.status(200).json(resipies.slice(0, 8));
     } catch (error) {
       console.error(error);
 

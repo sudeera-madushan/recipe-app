@@ -8,7 +8,6 @@ export const authenticate = (handler: any) => (req: any, res: any) => {
   }
 
   const token = authHeader.split(' ')[1];
-
   try {
     req.user = verifyToken(token);
     return handler(req, res);

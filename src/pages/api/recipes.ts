@@ -21,14 +21,17 @@ async function handler(req: any, res: any) {
       } else if (category) {
         const resipies = await getAllRecipesByCategory(category);
         return res.status(200).json(
-          resipies.map((meal: any) => {
-            return formatObject(meal);
+          resipies.slice(0, 18).map((meal: any) => {
+            return {
+              ...formatObject(meal),
+              category: category,
+            };
           })
         );
       } else {
         const resipies = await getAllRecipes();
         return res.status(200).json(
-          resipies.map((meal: any) => {
+          resipies.slice(0, 18).map((meal: any) => {
             return formatObject(meal);
           })
         );
@@ -46,7 +49,7 @@ async function getAllRecipesByCategory(category: string) {
     const response = await axios.get(
       `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
     );
-    return response.data.meals;
+    return response.data.meals || [];
   } catch (error) {
     console.error(error);
     return [];
@@ -57,7 +60,7 @@ async function getAllRecipes() {
     const response = await axios.get(
       "https://www.themealdb.com/api/json/v1/1/search.php?s="
     );
-    return response.data.meals;
+    return response.data.meals || [];
   } catch (error) {
     console.error(error);
     return [];
@@ -66,7 +69,6 @@ async function getAllRecipes() {
 
 async function getOneRecipes(id: string) {
   try {
-    console.log("id", id);
     const response = await axios.get(
       `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
     );
@@ -81,6 +83,7 @@ function formatObject(meal: any) {
   return {
     id: meal.idMeal,
     name: meal.strMeal,
+    category: meal.strCategory,
     image: meal.strMealThumb,
   };
 }

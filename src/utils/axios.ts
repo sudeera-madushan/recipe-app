@@ -9,10 +9,11 @@ const Axios = axios.create({
 });
 
 Axios.interceptors.request.use((config) => {
-  const cookies = Cookies.get("token");
+  const cookies = Cookies.get("token"); // Make sure this name matches the cookie being set
   let token = "";
   if (cookies) {
     token = JSON.parse(cookies)["token"];
+    console.log('Cookies:', token);
   }
   // @ts-ignore
   config.headers = {

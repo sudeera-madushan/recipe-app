@@ -6,8 +6,11 @@ import { cookies } from "next/headers";
 import * as yup from "yup";
 
 const loginSchema = yup.object().shape({
-  email: yup.string().email().required("Email is required"),  
-  password: yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+  email: yup.string().email().required("Email is required"),
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
 });
 connect();
 export default async function handler(req: any, res: any) {
@@ -20,7 +23,7 @@ export default async function handler(req: any, res: any) {
 
       // find user by email
       const user = await User.findOne({ email });
-    //   console.log(user);
+      //   console.log(user);
       if (!user) {
         return res.status(401).json({ error: "Invalid credentials" });
       }
@@ -41,14 +44,17 @@ export default async function handler(req: any, res: any) {
 
       // console.log("token", token);
       // return token in cookie
-      res.setHeader("Set-Cookie", `token=${token}; HttpOnly; Path=/; Secure`);
+      res.setHeader(
+        "Set-Cookie",
+        `token=${JSON.stringify({
+          token,
+        })}; Path=/; Max-Age=86400; SameSite=Lax;`
+      );
 
       return res.status(200).json({
         message: "Login successful",
-        data: {
-          user: { id: user._id, name: user.name, email: user.email },
-          token,
-        },
+        user: { id: user._id, name: user.name, email: user.email },
+        token,
       });
     } catch (error) {
       console.log(error);

@@ -2,9 +2,19 @@ import User from "@/models/UserModel";
 import { signToken } from "@/utils/jwt";
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
+import * as yup from "yup";
+
+const loginSchema = yup.object().shape({
+  email: yup.string().email().required("Email is required"),  
+  password: yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+});
+
 export default async function handler(req: any, res: any) {
   if (req.method === "POST") {
     try {
+      // validate request
+      await loginSchema.validate(req.body, { abortEarly: false });
+
       const { email, password } = req.body;
 
       // find user by email
@@ -22,7 +32,7 @@ export default async function handler(req: any, res: any) {
       }
 
       // sign token
-      const token = signToken({
+      const token: string = signToken({
         id: user._id,
         name: user.name,
         email: user.email,
@@ -40,7 +50,9 @@ export default async function handler(req: any, res: any) {
         },
       });
     } catch (error) {
-      console.log(error);
+      if (error instanceof yup.ValidationError) {
+        return res.status(400).json({ error: error.errors });
+      }
       return res.status(500).json({ error: "Internal server error" });
     }
   }

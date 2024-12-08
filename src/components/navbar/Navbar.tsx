@@ -31,7 +31,7 @@ const Navbar = () => {
               </div>
             </div>
             <div className="hidden md:block ">
-              <div className="flex items-center lg:space-x-4 sm:space-x-1 ">
+              <div className="flex items-center lg:space-x-4 sm:space-x-1 md:me-16">
                 <Link
                   href="/"
                   className={`${router.pathname === "/"  || router.pathname === "" || router.pathname === "/home" ? "text-gray-900 " : "font-light"} hover:bg-secondary hover:shadow-lg  px-3 py-1 rounded-3xl sm:text-[10px] lg:text-lg font-semibold duration-300 `}

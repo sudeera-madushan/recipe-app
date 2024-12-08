@@ -4,7 +4,7 @@ export async function getServerSideProps(context: any) {
   const { req, params } = context;
   const token = req.cookies.token || "";
   const id = params.page;
-  const response = await fetch(`http://localhost:3000/api/recipes?id=${id}`, {
+  const response = await fetch(`${process.env.API_BASE_URL}recipes?id=${id}`, {
     headers: {
       Authorization: `Bearer ${JSON.parse(token).token}`,
     },
@@ -45,6 +45,7 @@ const ItemPreview = ({
         <div className="w-full lg:w-1/3">
           <Image
             width={500}
+            height={500}
             src={recipe.image}
             alt={recipe.name}
             className="rounded-lg shadow-lg"

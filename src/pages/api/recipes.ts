@@ -39,7 +39,7 @@ async function handler(req: any, res: any) {
     } catch (error) {
       console.error(error);
 
-      return res.status(500).json({ error: "Internal server error" });
+      return res.status(500).json({ error: error });
     }
   }
 }
@@ -63,7 +63,7 @@ async function getAllRecipes() {
     return response.data.meals || [];
   } catch (error) {
     console.error(error);
-    return [];
+    throw error;
   }
 }
 

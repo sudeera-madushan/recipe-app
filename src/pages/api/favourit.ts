@@ -40,8 +40,6 @@ async function handler(req: any, res: any) {
           category,
           image,
         });
-        console.log(req.user.id)
-        console.log(newFavouritRecipe)
         await newFavouritRecipe.save();
         return res.status(200).json({ message: "Recipe added successfully" });
       }

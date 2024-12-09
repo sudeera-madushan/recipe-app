@@ -16,7 +16,12 @@ export const retrieveCategories = async (): Promise<Category[]> => {
   return response.data || [];
 };
 
-export const addOrRemoveFav = async (recipe: Recipe) : Promise<{message: string}> => {
+
+export const addOrRemoveFav = async (recipe: Recipe): Promise<MutationResponse> => {
   const response = await Axios.post("favourit", recipe);
   return response.data;
+};
+
+export interface MutationResponse {
+  message: string;
 }

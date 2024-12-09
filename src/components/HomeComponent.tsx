@@ -6,7 +6,7 @@ import CategoryButtonCard from "./card/CategoryButtonCard";
 import Axios from "@/utils/axios";
 import { Category, Recipe } from "@/utils/types";
 import Loader from "./loader/Loader";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useCategory, useFavRecipes, useRecipes } from "@/hooks/useApi";
 import { addOrRemoveFav } from "@/api/api";
 import { toast } from "react-toastify";

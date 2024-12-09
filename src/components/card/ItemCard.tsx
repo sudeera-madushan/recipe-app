@@ -4,9 +4,10 @@ import { useState } from "react";
 import { Recipe } from "@/utils/types";
 import Router from "next/router";
 import Image from "next/image";
-import { useMutation } from "react-query";
-import { addOrRemoveFav } from "@/api/api";
+import { useMutation } from "@tanstack/react-query";
+import { addOrRemoveFav, MutationResponse } from "@/api/api";
 import { toast } from "react-toastify";
+import { useFavRecipes } from "@/hooks/useApi";
 const ItemCard = ({
   recipe,
   isFav,
@@ -16,14 +17,14 @@ const ItemCard = ({
   isFav: boolean;
   refetch: any
 }) => {
-  const mutation = useMutation(addOrRemoveFav, {
+  const mutation = useMutation<MutationResponse, Error, Recipe>({
+    mutationFn: addOrRemoveFav,
     onSuccess: (res) => {
-      console.log(res)
-      refetch()
+      console.log(res);
+      refetch();
       toast.success(res.message);
     },
     onError: (error: any) => {
-      setFav(!fav)
       toast.error(`Error: ${error.message}`);
     },
   });

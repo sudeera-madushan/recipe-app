@@ -1,3 +1,4 @@
+import SuggesItems from "@/components/recipe/SuggesItems";
 import Image from "next/image";
 
 export async function getServerSideProps(context: any) {
@@ -49,7 +50,10 @@ const ItemPreview = ({
   };
 }) => {
   return (
-    <div className="container mx-auto py-10">
+    <>
+    <div className="bg-body">
+
+    <div className="container mx-auto py-10 ">
       <div className="flex flex-col lg:flex-row items-start px-4 sm:px-0">
         <div className="w-full lg:w-1/3 ">
           <Image
@@ -69,6 +73,9 @@ const ItemPreview = ({
         </div>
       </div>
     </div>
+    </div>
+    <SuggesItems category={recipe.category}/>
+    </>
   );
 };
 

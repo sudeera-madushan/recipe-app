@@ -2,36 +2,54 @@ import React from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useState } from "react";
 import { Recipe } from "@/utils/types";
-import Axios from "@/utils/axios";
 import Router from "next/router";
 import Image from "next/image";
+import { useMutation } from "react-query";
+import { addOrRemoveFav } from "@/api/api";
+import { toast } from "react-toastify";
 const ItemCard = ({
   recipe,
   isFav,
-  handleFav,
+  refetch
 }: {
   recipe: Recipe;
   isFav: boolean;
-  handleFav: any;
+  refetch: any
 }) => {
+  const mutation = useMutation(addOrRemoveFav, {
+    onSuccess: (res) => {
+      console.log(res)
+      refetch()
+      toast.success(res.message);
+    },
+    onError: (error: any) => {
+      setFav(!fav)
+      toast.error(`Error: ${error.message}`);
+    },
+  });
+  const [fav, setFav] = useState(isFav)
+  const handleClickFav = () => {
+    setFav(!fav)
+    mutation.mutate(recipe)
+  }
   return (
     <div className="group" >
       <div className="relative transform transition-transform duration-300 group-hover:scale-105  p-4">
         <Image
           onClick={() => Router.push(`/recipe/${recipe.id}`)}
           src={recipe.image}
-          className="object-cover rounded-3xl cursor-pointer"
+          className="object-cover rounded-3xl cursor-pointer "
           alt={recipe.name}
           width={200}
           height={200}
         />
         <div className="mt-2 font-semibold text-fontGray flex items-center">
           {recipe.category}
-          <button className="ms-2" onClick={() => handleFav()}>
-            {isFav ? (
+          <button className="ms-2" onClick={() => handleClickFav()}>
+            {fav ? (
               <FaHeart className="text-xl text-primary" />
             ) : (
-              <FaRegHeart className="text-xl text-primary border" />
+              <FaRegHeart className="text-xl text-primary" />
             )}
           </button>
         </div>

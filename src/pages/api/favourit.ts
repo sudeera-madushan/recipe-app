@@ -31,7 +31,7 @@ async function handler(req: any, res: any) {
       const favouritRecipe = await FavouritRecipe.findOne({ id, userId: req.user.id });
       if (favouritRecipe) {
         await FavouritRecipe.deleteOne({ id });
-        return res.status(200).json({ message: "Recipe deleted successfully" });
+        return res.status(200).json({ message: "Remove Recipe in Favourit" });
       } else {
         const newFavouritRecipe = new FavouritRecipe({
           userId: req.user.id,
@@ -41,7 +41,7 @@ async function handler(req: any, res: any) {
           image,
         });
         await newFavouritRecipe.save();
-        return res.status(200).json({ message: "Recipe added successfully" });
+        return res.status(200).json({ message: "Added Recipe to Favourit" });
       }
     } catch (error: any) {
       console.log("error", error);

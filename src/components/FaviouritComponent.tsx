@@ -6,44 +6,16 @@ import CategoryButtonCard from "./card/CategoryButtonCard";
 import Axios from "@/utils/axios";
 import { Category, Recipe } from "@/utils/types";
 import Loader from "./loader/Loader";
+import { useFavRecipes } from "@/hooks/useApi";
 
 const FaviouritComponent = () => {
-  const [faviouritRecipes, setFavouritRecipes] = React.useState<Recipe[]>([]);
-  const [loading, setLoading] = React.useState<boolean>(true);
+  const { data: faviouritRecipes, isLoading: favLoading , refetch } = useFavRecipes();
 
-
-  useEffect(() => {
-    fetchFaviouritRecipes();
-  }, []);
-
-
-  const fetchFaviouritRecipes = async () => {
-    try {
-      const response = await Axios.get("favourit");
-      setFavouritRecipes(response.data);
-      setLoading(false);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
-
-  const handleFav = async (recipe: Recipe) => {
-    // setIsFav(!isFav);
-    try {
-      setLoading(true);
-      await Axios.post("favourit", recipe);
-      fetchFaviouritRecipes();
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  if (favLoading) return <Loader/>
 
   return (
     <MainScreen>
-      {loading ? (
-        <Loader />
-      ) : faviouritRecipes.length > 0 ? (
+      { faviouritRecipes && faviouritRecipes.length > 0 ? (
         <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 lg:grid-cols-6 gap-2 w-full my-10">
           {faviouritRecipes.map((recipe: Recipe) => (
             <ItemCard
@@ -52,7 +24,7 @@ const FaviouritComponent = () => {
               isFav={
                 true
               }
-              handleFav={() => {handleFav(recipe)}}
+              refetch={refetch}
             />
           ))}
         </div>
